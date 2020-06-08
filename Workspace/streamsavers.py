@@ -1,6 +1,12 @@
 import pyglet
+import os
+from os import listdir
  
-animation = pyglet.image.load_animation('gifs/simpsons.gif')
+listdirs = os.listdir('C:\\Users\\rjs57\\gifs')
+i = 0
+timer = 0.0
+
+animation = pyglet.image.load_animation('C:\\Users\\rjs57\\gifs\\' + listdirs[i])
 animSprite = pyglet.sprite.Sprite(animation)
  
  
@@ -18,6 +24,10 @@ pyglet.gl.glClearColor(r,g,b,alpha)
 def on_draw():
     window.clear()
     animSprite.draw()
+
+    # if timer >= 5.0:
+    #     if i > listdirs.__sizeof__:
+    #     i += 1
  
  
  
