@@ -5,7 +5,7 @@ import sys
 
 pygame.init() #pylint: disable=maybe-no-member
 
-homer = pygame.image.load('C:\\Users\\rjs57\\gifs\\simpsons.gif', 'r')
+homer = pygame.image.open('C:\\Users\\rjs57\\gifs\\simpsons.gif', 'r')
 homerrect = homer.get_rect()
 
 size = width, height = homer.get_rect().x, homer.get_rect().y
