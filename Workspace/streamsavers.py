@@ -1,26 +1,34 @@
-from PIL import Image
-from PIL import GifImagePlugin
-import pygame
-import sys
+import pyglet
+import os
+from os import listdir
+ 
+listdirs = os.listdir('C:\\Users\\rjs57\\gifs')
+i = 0
+timer = 0.0
 
-pygame.init() #pylint: disable=maybe-no-member
+animation = pyglet.image.load_animation('C:\\Users\\rjs57\\gifs\\' + listdirs[i])
+animSprite = pyglet.sprite.Sprite(animation)
+ 
+ 
+w = animSprite.width
+h = animSprite.height
+ 
+window = pyglet.window.Window(width=w, height=h)
+ 
+r,g,b,alpha = 0.5,0.5,0.8,0.5
+ 
+ 
+pyglet.gl.glClearColor(r,g,b,alpha)
+ 
+@window.event
+def on_draw():
+    window.clear()
+    animSprite.draw()
 
-homer = Image.open('C:\\Users\\rjs57\\gifs\\simpsons.gif', 'r')
-homerrect = homer.get_rect()
-
-size = width, height = homer.get_rect().x, homer.get_rect().y
-screen = pygame.display.set_mode(homer.get_rect().size)
-black = 0, 0, 0
-
-running = True
-while running:
-    for event in pygame.event.get():
-        if event.type == pygame.QUIT: #pylint: disable=maybe-no-member
-            running = False
-        
-        for frame in range(0, homer.n_frames):
-            screen.fill(black)
-            homer.seek(frame)
-            screen.blit(homer, homerrect) #pylint: disable=maybe-no-member
-            pygame.display.flip()
-
+    # if timer >= 5.0:
+    #     if i > listdirs.__sizeof__:
+    #     i += 1
+ 
+ 
+ 
+pyglet.app.run()
