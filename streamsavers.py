@@ -1,50 +1,44 @@
 import pyglet
-import os
-from os import listdir
+from pathlib import Path
+import imageio
  
-def main():
-    
-    cwd = os.getcwd()
-    listdirs = os.listdir('D:\\Dev\\Stream-Savers\\gifs') 
-    print(cwd)
-    i = 0
-    fullDirect = 'D:\\Dev\\Stream-Savers\\gifs\\color_ball_frames'
+image_path = Path('gifs')
+images = list(image_path.glob('*.gif'))
 
-    file = open(fullDirect, 'rb')
-    images = pyglet.resource.image(file)
 
-    animation = pyglet.image.Animation.from_image_sequence(images, duration=5, loop=True)
-    animSprite = pyglet.sprite.Sprite(animation)
-    
-    
-    w = animSprite.width
-    h = animSprite.height
+animation = pyglet.sprite.Sprite(images[0])
 
-    w, h = 600, 600
-    
-    window = pyglet.window.Window(width=w, height=h)
-    
-    r,g,b,alpha = 0.5,0.5,0.8,0.5
-    
-    event_loop = pyglet.app.EventLoop()
-    
-    pyglet.gl.glClearColor(r,g,b,alpha)
+width = animation.width
+height = animation.height
 
-    
-    
-    @window.event
-    def on_draw():
-        window.clear()
-        animSprite.draw()
-        
-    @event_loop.event
-    def on_window_close(window):
-        event_loop.exit()
-        return pyglet.event.EVENT_HANDLED
+window = pyglet.window.Window(width, height)
 
-    pyglet.app.run()
-    on_draw()
-    on_window_close(window)
+@window.event
+def onDraw():
+    window.clear()
+    animation.draw()
 
-if __name__ == "__main__":
-    main()
+pyglet.app.run()
+
+# animation = pyglet.image.load_animation('gifs/homer.gif')
+# animSprite = pyglet.sprite.Sprite(animation)
+ 
+ 
+# w = animSprite.width
+# h = animSprite.height
+ 
+# window = pyglet.window.Window(width=w, height=h)
+ 
+# r,g,b,alpha = 0.5,0.5,0.8,0.5
+ 
+ 
+# pyglet.gl.glClearColor(r,g,b,alpha)
+ 
+# @window.event
+# def on_draw():
+#     window.clear()
+#     animSprite.draw()
+ 
+ 
+ 
+# pyglet.app.run()
