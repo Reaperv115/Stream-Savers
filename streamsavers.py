@@ -5,12 +5,12 @@ from os import listdir
 def main():
     
     cwd = os.getcwd()
-    listdirs = os.listdir('E:\\Dev\\StreamSavers\\gifs') 
+    listdirs = os.listdir('D:\\Dev\\Stream-Savers\\gifs') 
     print(cwd)
     i = 0
-    fullDirect = 'E:\\Dev\\StreamSavers\\gifs\\' + listdirs[i]
+    fullDirect = 'D:\\Dev\\Stream-Savers\\gifs\\color_ball_frames'
 
-    file = open(fullDirect, 'r')
+    file = open(fullDirect, 'rb')
     images = pyglet.resource.image(file)
 
     animation = pyglet.image.Animation.from_image_sequence(images, duration=5, loop=True)
