@@ -1,25 +1,8 @@
 import pyglet
-import glob
-import os
-import msvcrt
+import time
 
-directory = os.getcwd()
-
-path = 'gifs/*.gif'
-gifnum = 0
-
-if msvcrt.kbhit():
-    gifnum = gifnum + 1
-
-gifs = glob.glob(path, recursive=False)
-
-# images = [pyglet.resource.image('gifs/patrick_frames/0.gif'),
-#           pyglet.resource.image('gifs/patrick_frames/1.gif'),
-#           pyglet.resource.image('gifs/patrick_frames/3.gif')]
-
-# animation = pyglet.image.Animation.from_image_sequence(images, duration=0.1, loop = True)
-
-animation = pyglet.image.load_animation(gifs[gifnum])
+    
+animation = pyglet.image.load_animation('gifs/JOJO_Animated.gif')
 animSprite = pyglet.sprite.Sprite(animation)
 
 
@@ -37,8 +20,9 @@ pyglet.gl.glClearColor(r,g,b,alpha)
 def on_draw():
     window.clear()
     animSprite.draw()
- 
- 
- 
-if __name__ == "__main__":
-    pyglet.app.run()
+
+def pauseAnim(self):
+    time.sleep(1.0)
+
+pyglet.clock.schedule_interval_soft(pauseAnim, 2.7)
+pyglet.app.run()
