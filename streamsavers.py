@@ -6,13 +6,13 @@ import os
 
 
 def main():
-    path = 'E:\\Dev\\StreamSavers\\gifs\\*.gif'
+    path = 'D:\\Dev\\StreamSavers\\gifs\\*.gif'
     event_loop = pyglet.app.EventLoop()
 
     gifs = glob.glob(path, recursive=False)
     gifnum = 0
 
-    event_loop = pyglet.app.EventLoop()
+    event_loop = pyglet.app.base.EventLoop()
         
     animation = pyglet.image.load_animation(gifs[gifnum])
 
@@ -38,18 +38,17 @@ def main():
         animSprite.draw()
         
 
-
+    @event_loop.event
+    def on_Window_close():
+        exit()
 
     def pauseAnim(self):
         time.sleep(4.0)
         
 
-
-    pyglet.clock.tick()
     pyglet.clock.schedule_interval(pauseAnim, duration)
 
     pyglet.app.EventLoop().run()
 
 if __name__ == '__main__':
     main()
-
