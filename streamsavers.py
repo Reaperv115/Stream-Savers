@@ -29,9 +29,9 @@ def main():
         animSprite.draw()
 
     def pauseAnim(self):
-         time.sleep(4.0)
+         pyglet.clock.sleep(500.0)
     
-    pyglet.clock.schedule_interval(pauseAnim, duration)
+    pyglet.clock.schedule_interval(pauseAnim, 5)
     
     pyglet.app.run()
 
