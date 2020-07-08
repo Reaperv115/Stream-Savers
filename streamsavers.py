@@ -1,39 +1,33 @@
+import cv2
+import numpy as np
 import pyglet
-import time
-from PIL import Image
 import glob
+import time
+import msvcrt
 import os
 
+gifs = glob.glob('*.gif')
+gifnum = 0
+w, h = 600, 600
+cap = cv2.VideoCapture(gifs[gifnum])
 
-def main():
-    path = 'E:\\Dev\\StreamSavers\\gifs\\1.gif'
+if (cap.isOpened() == False):
+    print("failed to open file")
+while (cap.isOpened()):
+    ret, frame = cap.read()
 
-    animation = pyglet.image.load_animation(path)
-    animSprite = pyglet.sprite.Sprite(animation)
-    
-    duration = Image.open(path).info['duration']
-    
-    w = animSprite.width
-    h = animSprite.height
-    
-    window = pyglet.window.Window(width=w, height=h)
-    
-    r,g,b,alpha = 0.5,0.5,0.8,0.5
-    
-    
-    pyglet.gl.glClearColor(r,g,b,alpha)
-    
-    @window.event
-    def on_draw():
-        window.clear()
-        animSprite.draw()
+    if (ret == True):
+        cv2.namedWindow('video', cv2.WND_PROP_FULLSCREEN)
+        cv2.imshow('video', frame)
+        if (cv2.waitKey(50) & 0xFF == ord('q')):
+            break
+    else:
+        time.sleep(5)
+        gifnum += 1
+        if gifnum >= len(gifs):
+            gifnum = 0
+        cap = cv2.VideoCapture(gifs[gifnum])
+        
 
-    def pauseAnim(self):
-         pyglet.clock.sleep(500.0)
-    
-    pyglet.clock.schedule_interval(pauseAnim, 5)
-    
-    pyglet.app.run()
-
-if __name__ == '__main__':
-    main()
+cap.release()
+cv2.destroyAllWindows()
