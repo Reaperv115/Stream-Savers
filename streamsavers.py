@@ -6,7 +6,10 @@ import time
 import msvcrt
 import os
 
-gifs = glob.glob('*.gif')
+types = ('*.gif', '*.webm', '*.mpeg')
+gifs = []
+for files in types:
+    gifs.extend(glob.glob(files))
 gifnum = 0
 w, h = 600, 600
 cap = cv2.VideoCapture(gifs[gifnum])
@@ -20,13 +23,12 @@ while (cap.isOpened()):
     if (ret == True):
         cv2.namedWindow('video', cv2.WND_PROP_FULLSCREEN)
         cv2.imshow('video', frame)
-        if (cv2.waitKey(25) & 0xFF == ord('q')):
+        if (cv2.waitKey(50) & 0xFF == ord('q')):
             break
     else:
         cv2.imshow('video', black)
-        if (cv2.waitKey(25) & 0xFF == ord('q')):
+        if (cv2.waitKey(50) & 0xFF == ord('q')):
             break
-        time.sleep(5)
         gifnum += 1
         if gifnum >= len(gifs):
             gifnum = 0
