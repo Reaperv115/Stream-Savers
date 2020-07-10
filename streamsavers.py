@@ -2,9 +2,7 @@ import cv2
 import numpy as np
 import pyglet
 import glob
-import time
-import msvcrt
-import os
+import keyboard
 
 types = ('*.gif', '*.webm', '*.mpeg')
 gifs = []
@@ -20,14 +18,28 @@ if (cap.isOpened() == False):
 while (cap.isOpened()):
     ret, frame = cap.read()
 
+    if (keyboard.is_pressed('n')):
+        gifnum += 1
+        if (gifnum >= len(gifs)):
+            gifnum = 0
+        cap = cv2.VideoCapture(gifs[gifnum])
+        ret, frame = cap.read()
+    if (keyboard.is_pressed('l')):
+        gifnum -= 1
+        if (gifnum < 0):
+            gifnum = len(gifs) - 1
+        cap = cv2.VideoCapture(gifs[gifnum])
+        ret, frame = cap.read()
+
     if (ret == True):
         cv2.namedWindow('video', cv2.WND_PROP_FULLSCREEN)
         cv2.imshow('video', frame)
         if (cv2.waitKey(50) & 0xFF == ord('q')):
             break
     else:
+        cap.release()
         cv2.imshow('video', black)
-        if (cv2.waitKey(50) & 0xFF == ord('q')):
+        if (cv2.waitKey(5000) & 0xFF == ord('q')):
             break
         gifnum += 1
         if gifnum >= len(gifs):
